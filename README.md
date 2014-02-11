@@ -14,3 +14,17 @@ URL = "http://github.com"
 parser = RoblyParser()
 html_object = parser.get_webpage_as_object(URL)
 ```
+
+###What is in the HTML object?
+---
+
+| Attribute     | Type              |
+| ------------- |:-----------------:|
+| title         | string            |
+| description   | string            |
+| keywords      | list of string    |
+| links         | list of string    |
+| images        | list of string    |
+| body          | string            |
+| body_html     | string            |
+| robots_index  | boolean           |
