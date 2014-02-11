@@ -1,3 +1,4 @@
 RoblyParser
-=====
-HTML parser created with python.
+=======
+
+A simple HTML parser written in Python.
