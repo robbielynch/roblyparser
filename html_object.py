@@ -9,6 +9,7 @@ class HTMLObject(object):
 
     title = ""
     description = ""
+    h1s = []
     keywords = []
     links = []
     images = []
@@ -41,6 +42,9 @@ class HTMLObject(object):
             elif token.startswith('<img '):
                 #get links
                 self.images.append(self.get_link_from_img_src_token(token))
+            elif token.startswith('<h1'):
+                #header one
+                self.h1s.append(tokens[index+1])
             elif token.startswith('<meta'):
                 #Get meta Keywords
                 keywords = self.get_keywords_from_meta_tag(token)

@@ -22,6 +22,7 @@ html_object = parser.get_webpage_as_object(URL)
 | ------------- |:-----------------:|
 | title         | string            |
 | description   | string            |
+| h1s           | list of string    |
 | keywords      | list of string    |
 | links         | list of string    |
 | images        | list of string    |
