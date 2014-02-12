@@ -7,7 +7,7 @@ Usage
 ----
 To get the latest stable release:
 ```
-git clone https://github.com/robbielynch/RoblyParser roblyparser
+git clone https://github.com/robbielynch/RoblyParser.git roblyparser
 cd roblyparser
 git checkout v0.1
 ```
