@@ -19,6 +19,23 @@ class RoblyParser(object):
             'User-Agent':'Mozilla/5 (Windows 7) Gecko'}
         res = requests.get(url, headers=headers)
         string = str(res.content).replace('\\n', "")
+        string = string.replace('&amp;', '&')
+        string = string.replace('&#32;', ' ')
+        string = string.replace('&#33;', '!')
+        string = string.replace('&#34;', '"')
+        string = string.replace('&#35;', '#')
+        string = string.replace('&#36;', '$')
+        string = string.replace('&#37;', '%')
+        string = string.replace('&#39;', "'")
+        string = string.replace('&#45;', '-')
+        string = string.replace('&#032;', ' ')
+        string = string.replace('&#033;', '!')
+        string = string.replace('&#034;', '"')
+        string = string.replace('&#035;', '#')
+        string = string.replace('&#036;', '$')
+        string = string.replace('&#037;', '%')
+        string = string.replace('&#039;', "'")
+        string = string.replace('&#045;', '-')
 
         return string.rstrip()
 

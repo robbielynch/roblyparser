@@ -22,6 +22,16 @@ class TestHTMLObject(TestCase):
         ho.tokens_to_html_object(tokens)
         print("done")
 
+    def test_get_tokens(self):
+        token1 = '<meta name="keywords" content="independent,people"/>'
+        token2 = '<meta name="keywords" content="independent ,  people"/>'
+        ho = HTMLObject()
+        keys1 = ho.get_keywords_from_meta_tag(token1)
+        self.assertEqual(["independent", "people"], keys1)
+        keys2 = ho.get_keywords_from_meta_tag(token2)
+        self.assertEqual(["independent", "people"], keys2)
+
+
 
     def tearDown(self):
         pass

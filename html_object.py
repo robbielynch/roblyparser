@@ -41,6 +41,16 @@ class HTMLObject(object):
             elif token.startswith('<img '):
                 #get links
                 self.images.append(self.get_link_from_img_src_token(token))
+            elif token.startswith('<meta'):
+                #Get meta Keywords
+                keywords = self.get_keywords_from_meta_tag(token)
+                if keywords:
+                    self.keywords = keywords
+                else:
+                    #Check for meta description
+                    self.description = self.get_description_from_meta_tag(token)
+
+                
 
 
 
@@ -55,6 +65,40 @@ class HTMLObject(object):
             return link[6:]
         else:
             return ""
+
+    def get_keywords_from_meta_tag(self, token):
+        keywords_string = ""
+        keywords_list = []
+        #keyword_regex = re.compile(r'<meta\sname=["\']keywords["\']\scontent=["\'](.*?)["\']\s/>')
+        match = re.search(r'<meta[\s]*name=[\'"]keywords[\'"][\s]*content=[\'"]([\w, ]*)[\'"][. ]*[/>]*', token)
+
+        try:
+            if match:
+                content_match = re.search(r'content=[\'"]([\w, ]*)[\'"][. ]*[/>]*', match.group(0))
+                keywords_match = re.search(r'content=[\'"]([\w, ]*)[\'"]', content_match.group(0))
+                keywords_string = keywords_match.group(0)[9:len(keywords_match.group(0))-1]
+
+            if keywords_string:
+                keywords_string = keywords_string.replace(",", " ")
+                keywords_list = keywords_string.split()
+        except Exception as e:
+            print("[RoblyParser] error parsing keywords - {}".format(str(e)))
+        return keywords_list
+
+    def get_description_from_meta_tag(self, token):
+        #TODO it's not working when special chars are in the description e.g. ;"|'!-
+        description_string = ""
+        match = re.search(r'<meta[\s]*name=[\'"]description[\'"][\s]*content=[\'"]([\w, ]*)[\'"][. ]*[/>]*', token)
+
+        try:
+            if match:
+                content_match = re.search(r'content=[\'"]([\w, ]*)[\'"][. ]*[/>]*', match.group(0))
+                desc_match = re.search(r'content=[\'"]([\w, ]*)[\'"]', content_match.group(0))
+                description_string = desc_match.group(0)[12:len(desc_match.group(0))-1]
+                return description_string
+        except Exception as e:
+            print("[RoblyParser] error parsing keywords - {}".format(str(e)))
+        return description_string
 
 
     def get_body_content_as_string_from_body_tokens(self, body_tokens):
@@ -75,6 +119,5 @@ class HTMLObject(object):
             return link[5:]
         else:
             return ""
-
 
 
