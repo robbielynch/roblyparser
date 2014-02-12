@@ -5,6 +5,14 @@ A simple HTML parser written in Python.
 
 Usage
 ----
+To get the latest stable release:
+```
+git clone https://github.com/robbielynch/RoblyParser roblyparser
+cd roblyparser
+git checkout v0.1
+```
+
+Copy the directory into your project and then:
 ```python
 from roblyparser.robly_parser import RoblyParser
 
@@ -16,7 +24,6 @@ html_object = parser.get_webpage_as_object(URL)
 ```
 
 ###What is in the HTML object?
----
 
 | Attribute     | Type              |
 | ------------- |:-----------------:|
