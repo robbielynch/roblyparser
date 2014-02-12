@@ -7,9 +7,9 @@ Usage
 ----
 To get the latest stable release:
 ```
-git clone https://github.com/robbielynch/RoblyParser.git roblyparser
+git clone https://github.com/robbielynch/roblyparser.git
 cd roblyparser
-git checkout v0.1
+git checkout v0.2
 ```
 
 Copy the directory into your project and then:
@@ -27,6 +27,7 @@ html_object = parser.get_webpage_as_object(URL)
 
 | Attribute     | Type              |
 | ------------- |:-----------------:|
+| url           | string            |
 | title         | string            |
 | description   | string            |
 | h1s           | list of string    |

@@ -45,5 +45,5 @@ class RoblyParser(object):
         tokeniser = Tokens()
         tokens = tokeniser.tokenise(html)
         objectifier = HTMLObject()
-        objectifier.tokens_to_html_object(tokens)
+        objectifier.tokens_to_html_object(tokens, url)
         return objectifier

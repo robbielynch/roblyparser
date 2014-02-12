@@ -7,6 +7,7 @@ class HTMLObject(object):
     Class that converts and HTML page into an HTML Object
     """
 
+    url = ""
     title = ""
     description = ""
     h1s = []
@@ -20,10 +21,11 @@ class HTMLObject(object):
     def __init__(self):
         pass
 
-    def tokens_to_html_object(self, tokens):
+    def tokens_to_html_object(self, tokens, url):
         """
         Function to convert a list of html tokens into an HTML object.
         """
+        self.url = url
         for index, token in enumerate(tokens):
             #title
             if token.startswith("<title>"):
