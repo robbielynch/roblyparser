@@ -45,10 +45,12 @@ class HTMLObject(object):
                 #Get meta Keywords
                 keywords = self.get_keywords_from_meta_tag(token)
                 if keywords:
-                    self.keywords = keywords
+                    if 'keywords' in token:
+                        self.keywords = keywords
                 else:
                     #Check for meta description
-                    self.description = self.get_description_from_meta_tag(token)
+                    if 'description' in token:
+                        self.description = self.get_description_from_meta_tag(token)
 
                 
 
@@ -86,14 +88,17 @@ class HTMLObject(object):
         return keywords_list
 
     def get_description_from_meta_tag(self, token):
-        #TODO it's not working when special chars are in the description e.g. ;"|'!-
+        token = token.replace("\'", r"'")
+        token = token.replace("\!", r"!")
+        token = token.replace("\-", r"-")
+        token = token.replace("\,", r",")
         description_string = ""
-        match = re.search(r'<meta[\s]*name=[\'"]description[\'"][\s]*content=[\'"]([\w, ]*)[\'"][. ]*[/>]*', token)
+        match = re.search('<meta[\s]*name=[\'"]description[\'"][\s]*content=[\'"]([\w, \W]*)[\'"][. ]*[/>]*', token)
 
         try:
             if match:
-                content_match = re.search(r'content=[\'"]([\w, ]*)[\'"][. ]*[/>]*', match.group(0))
-                desc_match = re.search(r'content=[\'"]([\w, ]*)[\'"]', content_match.group(0))
+                content_match = re.search(r'content=[\'"]([\w, \W\\]*)[\'"][. ]*[/>]*', match.group(0))
+                desc_match = re.search(r'content=[\'"]([\w, \W\\]*)[\'"]', content_match.group(0))
                 description_string = desc_match.group(0)[12:len(desc_match.group(0))-1]
                 return description_string
         except Exception as e:
