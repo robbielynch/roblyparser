@@ -50,7 +50,9 @@ class HTMLObject(object):
                 else:
                     #Check for meta description
                     if 'description' in token:
-                        self.description = self.get_description_from_meta_tag(token)
+                        description = self.get_description_from_meta_tag(token)
+                        if description:
+                            self.description = description
 
                 
 
@@ -88,6 +90,7 @@ class HTMLObject(object):
         return keywords_list
 
     def get_description_from_meta_tag(self, token):
+        #TODO it's not working when special chars are in the description e.g. ;"|'!-
         token = token.replace("\'", r"'")
         token = token.replace("\!", r"!")
         token = token.replace("\-", r"-")
